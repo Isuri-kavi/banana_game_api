@@ -3,23 +3,36 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState({
+    username: "",
+    password: "",
+  });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  // Handle form data change
+  const handleChange = (e) => {
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Basic validation
-    if (!username || !password) {
+    if (!userData.username || !userData.password) {
       setError("Please enter both username and password.");
       return;
     }
 
     // Send POST request to backend to authenticate user
     axios
-      .post("http://localhost:5000/api/auth/login", { username, password })
+      .post("http://localhost:5000/api/auth/login", {
+        username: userData.username,
+        password: userData.password,
+      })
       .then((response) => {
         // On successful login, store token (if using JWT) and redirect to home/dashboard
         localStorage.setItem("token", response.data.token); // Store the token (or other user data)
@@ -45,8 +58,9 @@ const Login = () => {
           <label>Username:</label>
           <input
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            name="username"
+            value={userData.username}
+            onChange={handleChange}
             required
           />
         </div>
@@ -54,8 +68,9 @@ const Login = () => {
           <label>Password:</label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={userData.password}
+            onChange={handleChange}
             required
           />
         </div>

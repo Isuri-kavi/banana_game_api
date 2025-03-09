@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Register = () => {
   const [userData, setUserData] = useState({
     username: "",
+    email: "",  // Added email field
     password: "",
     confirmPassword: "",
   });
@@ -29,7 +30,7 @@ const Register = () => {
       return;
     }
 
-    if (!userData.username || !userData.password) {
+    if (!userData.username || !userData.email || !userData.password) {
       setError("Please fill out all fields.");
       return;
     }
@@ -38,6 +39,7 @@ const Register = () => {
     axios
       .post("http://localhost:5000/api/auth/register", {
         username: userData.username,
+        email: userData.email,  // Include email in the request
         password: userData.password,
       })
       .then((response) => {
@@ -61,6 +63,16 @@ const Register = () => {
             type="text"
             name="username"
             value={userData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            value={userData.email}  // Bind email field
             onChange={handleChange}
             required
           />
