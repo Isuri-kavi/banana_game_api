@@ -68,16 +68,6 @@ const Register = () => {
           />
         </div>
         <div>
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={userData.email}  // Bind email field
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
           <label>Password</label>
           <input
             type="password"

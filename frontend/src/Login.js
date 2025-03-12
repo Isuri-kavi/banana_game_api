@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -41,7 +41,7 @@ const Login = () => {
       })
       .catch((error) => {
         // Handle error (e.g., wrong credentials)
-        setError(error.response ? error.response.data.message : "Login failed");
+        setError(error.response?.data?.message || "Login failed");
       });
   };
 

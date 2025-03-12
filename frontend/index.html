@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game App</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="game-container">
+    <h1>Welcome to the Game!</h1>
+    <p>Click below to start the game.</p>
+
+    <!-- Difficulty Selection -->
+    <div id="difficultySelection">
+      <h3>Select Difficulty:</h3>
+      <button onclick="setDifficulty('easy')">Easy</button>
+      <button onclick="setDifficulty('medium')">Medium</button>
+      <button onclick="setDifficulty('hard')">Hard</button>
+    </div>
+
+    <button id="startButton" style="display:none;">Start Game</button>
+
+    <div id="gameContent" style="display:none;">
+      <h2 id="gameQuestion">Question will appear here</h2>
+      <img id="gameImage" src="" alt="Game image" />
+      <p id="solution"></p>
+
+      <p id="timer"></p> <!-- Timer will be displayed here -->
+
+      <input type="number" id="userAnswer" placeholder="Enter your answer" />
+      <button onclick="submitAnswer()">Submit Answer</button>
+      <p id="feedback"></p>  <!-- Display feedback after submission -->
+    </div>
+
+    <!-- Leaderboard Section -->
+    <div id="leaderboard" style="display:none;">
+      <h2>Leaderboard</h2>
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <!-- The leaderboard will be dynamically inserted here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Audio elements -->
+  <audio id="clickSound" src="sounds/click.mp3"></audio>
+  <audio id="correctAnswerSound" src="sounds/correct.mp3"></audio> <!-- Sound for correct answer -->
+  <audio id="wrongAnswerSound" src="sounds/wrong.mp3"></audio> <!-- Sound for wrong answer -->
+
+  <script>
+    let currentGame = null;
+    let timer;
+    let timeRemaining = 60; // Default time for easy level
+    let selectedDifficulty = 'easy'; // Default difficulty
+    let playerName = prompt('Enter your name:'); // Prompt user for their name
+
+    // Function to set the difficulty level
+    function setDifficulty(level) {
+      selectedDifficulty = level;
+      // Set the time remaining based on difficulty
+      switch (selectedDifficulty) {
+        case 'easy':
+          timeRemaining = 60;
+          break;
+        case 'medium':
+          timeRemaining = 45;
+          break;
+        case 'hard':
+          timeRemaining = 30;
+          break;
+      }
+      
+      // Hide the difficulty selection and show the start button
+      document.getElementById("difficultySelection").style.display = "none";
+      document.getElementById("startButton").style.display = "block"; 
+    }
+
+    // Function to start the game
+    async function startGame() {
+      // Play the button click sound
+      document.getElementById("clickSound").play();
+
+      try {
+        const response = await fetch('http://localhost:5000/api/game/start');
+        const data = await response.json();
+        console.log("API Data:", data); // Debugging log
+
+        if (response.ok) {
+          currentGame = data.data;
+
+          // Show the game content
+          document.getElementById('gameContent').style.display = 'block';
+          document.getElementById('gameQuestion').textContent = 'Solve this question:';
+          document.getElementById('gameImage').src = currentGame.question; // Set the image source
+          
+          // Start the timer
+          startTimer();
+        } else {
+          alert('Failed to start the game');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('There was an error starting the game');
+      }
+    }
+
+    // Function to start the countdown timer
+    function startTimer() {
+      timer = setInterval(() => {
+        if (timeRemaining > 0) {
+          timeRemaining--;
+          document.getElementById("timer").textContent = `Time left: ${timeRemaining}s`;
+        } else {
+          clearInterval(timer); // Stop the timer
+          document.getElementById("timer").textContent = "Time's up!";
+          alert("Time's up! The game is over.");
+          showLeaderboard(); // Display leaderboard after time is up
+        }
+      }, 1000); // Update every second
+    }
+
+    // Function to handle the user's answer submission
+    async function submitAnswer() {
+      const userAnswer = document.getElementById('userAnswer').value;
+
+      if (!userAnswer) {
+        alert('Please enter an answer.');
+        return;
+      }
+
+      try {
+        const feedback = document.getElementById('feedback');
+
+        // Compare the user's answer with the solution
+        if (parseInt(userAnswer) === currentGame.solution) {
+          feedback.textContent = "Correct!";
+          feedback.style.color = 'green';
+          document.getElementById("correctAnswerSound").play();
+        } else {
+          feedback.textContent = `Wrong! The correct answer is ${currentGame.solution}`;
+          feedback.style.color = 'red';
+          document.getElementById("wrongAnswerSound").play();
+        }
+
+        // Fetch the updated leaderboard
+        await showLeaderboard();
+      } catch (error) {
+        console.error('Error:', error);
+        alert('There was an error submitting your answer');
+      }
+    }
+
+    // Function to display the leaderboard
+    async function showLeaderboard() {
+      try {
+        const response = await fetch('http://localhost:5000/api/game/leaderboard');
+        const leaderboardData = await response.json();
+        console.log("Leaderboard Response:", leaderboardData); // Debugging log
+
+        if (response.ok) {
+          const leaderboardBody = document.getElementById('leaderboardBody');
+          leaderboardBody.innerHTML = ''; // Clear the previous leaderboard
+
+          leaderboardData.leaderboard.forEach((entry, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${index + 1}</td>
+              <td>${entry.playerName}</td>
+              <td>${entry.score}</td>
+            `;
+            leaderboardBody.appendChild(row);
+          });
+
+          // Show the leaderboard section
+          document.getElementById('leaderboard').style.display = 'block';
+        } else {
+          alert('Failed to fetch leaderboard');
+        }
+      } catch (error) {
+        console.error('Error fetching leaderboard:', error);
+        alert('There was an error fetching the leaderboard');
+      }
+    }
+
+    // Add event listener to the start button
+    document.getElementById("startButton").addEventListener("click", startGame);
+  </script>
+</body>
+</html>
