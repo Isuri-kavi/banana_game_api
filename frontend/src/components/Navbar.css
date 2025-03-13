@@ -1,0 +1,62 @@
+/* Navbar.css */
+
+/* Overall navbar styling */
+.navbar {
+    width: 100%;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding: 10px 20px;
+  }
+  
+  /* Container to hold navbar content */
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Logo section */
+  .navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Style for the logo text */
+  .navbar-logo-text {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  /* Navbar links container */
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  /* Style for each navbar item */
+  .navbar-item {
+    display: inline-block;
+  }
+  
+  /* Style for the links */
+  .navbar-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+  
+  /* Hover effect for the links */
+  .navbar-link:hover {
+    color: #ff6347;  /* Tomato color */
+  }
+  
+  /* Add some padding to the body so content doesn't overlap with navbar */
+  body {
+    padding-top: 60px;
+  }
+  

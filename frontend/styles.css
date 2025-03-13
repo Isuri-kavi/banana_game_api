@@ -168,4 +168,40 @@ body {
   color: #4CAF50;
 }
 
-  
+.game-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.start-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.start-button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+input {
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}

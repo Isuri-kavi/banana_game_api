@@ -12,3 +12,175 @@
     justify-content: space-between;
   }
   
+  /* App.css */
+
+/* General Styling */
+body {
+  font-family: 'Roboto', sans-serif; /* Adding a better font */
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: #007bff; /* Bootstrap-like blue */
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow */
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 30px; /* Rounded edges */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-link:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.1); /* Slight zoom effect on hover */
+  color: white;
+}
+
+.navbar-link:active {
+  transform: scale(1); /* Remove zoom on click */
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .navbar-link {
+    margin-left: 0;
+    margin-bottom: 10px;
+    padding: 12px 25px;
+  }
+}
+/* App.css */
+
+/* General Styling */
+body {
+  font-family: 'Roboto', sans-serif; /* Adding a better font */
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: #007bff; /* Bootstrap-like blue */
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow */
+  border-radius: 8px 8px 0 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.navbar-logo {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 30px; /* Rounded edges */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-link:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: scale(1.1); /* Slight zoom effect on hover */
+  color: white;
+}
+
+.navbar-link:active {
+  transform: scale(1); /* Remove zoom on click */
+}
+
+/* Align Game button to the right */
+.navbar-game {
+  margin-left: auto; /* Push Game button to the right */
+}
+
+.navbar-game .navbar-link {
+  margin-left: 0; /* No extra margin on the right-aligned button */
+}
+
+/* Responsive Navbar */
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+
+  .navbar-link {
+    margin-left: 0;
+    margin-bottom: 10px;
+    padding: 12px 25px;
+  }
+}

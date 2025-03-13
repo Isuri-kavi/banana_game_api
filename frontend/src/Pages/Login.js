@@ -34,10 +34,10 @@ const Login = () => {
         password: userData.password,
       })
       .then((response) => {
-        // On successful login, store token (if using JWT) and redirect to home/dashboard
+        // On successful login, store token (if using JWT) and redirect to game
         localStorage.setItem("token", response.data.token); // Store the token (or other user data)
         setError(""); // Clear any previous errors
-        navigate("/home"); // Redirect to home or dashboard
+        navigate("/game"); // Redirect to the game page
       })
       .catch((error) => {
         // Handle error (e.g., wrong credentials)
@@ -47,12 +47,12 @@ const Login = () => {
 
   const goToSignUp = () => {
     // Redirect user to Sign Up page if they don't have an account
-    navigate("/signup");
+    navigate("/register");
   };
 
   return (
     <div className="login-container">
-      <h2>Welcome Back</h2>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username:</label>
