@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt'); // Ensure consistent use of 'bcrypt'
+const bcrypt = require('bcryptjs'); // Ensure consistent use of 'bcrypt'
 const jwt = require('jsonwebtoken');
 const User = require('../models/User'); // Import the User model
 require('dotenv').config(); // Load environment variables

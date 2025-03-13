@@ -4,6 +4,7 @@ const dotenv = require('dotenv');  // Import dotenv to load .env variables
 const cors = require('cors');      // Import CORS to handle cross-origin requests
 const cookieParser = require('cookie-parser');  // Import cookieParser for handling cookies
 const mongoose = require('mongoose');  // Import mongoose for MongoDB connection
+const axios = require('axios');  // Import axios to make requests to the Banana API
 
 // Import routes for todos, authentication, and game logic
 const todoRoutes = require('./routes/todoRoutes');
@@ -71,6 +72,26 @@ app.use('/api/auth', authRoutes);
 
 // Use gameRoutes for all '/api/game' routes
 app.use('/api/game', gameRoutes); // Handle game-related routes
+
+// Function to get data from the Banana API
+const getBananaData = async () => {
+  try {
+    const response = await axios.get('https://marcconrad.com/uob/banana/api.php'); // Previous Banana API endpoint
+    return response.data;  // Return the data received from the API
+  } catch (error) {
+    console.error("Error connecting to Banana API:", error);
+  }
+};
+
+// Route to test the Banana API integration
+app.get('/test-banana', async (req, res) => {
+  const data = await getBananaData();
+  if (data) {
+    res.json(data);  // Send the Banana API data back in the response
+  } else {
+    res.status(500).send("Failed to retrieve data from the Banana API");
+  }
+});
 
 // Handle undefined routes (404 errors)
 app.use((req, res) => {
