@@ -34,10 +34,10 @@ const Login = () => {
         password: userData.password,
       })
       .then((response) => {
-        // On successful login, store token (if using JWT) and redirect to game
+        // On successful login, store token (if using JWT) and redirect to home
         localStorage.setItem("token", response.data.token); // Store the token (or other user data)
         setError(""); // Clear any previous errors
-        navigate("/game"); // Redirect to the game page
+        navigate("/home"); // Redirect to the home page after successful login
       })
       .catch((error) => {
         // Handle error (e.g., wrong credentials)

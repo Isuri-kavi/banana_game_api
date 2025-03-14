@@ -6,6 +6,10 @@ import "./App.css";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
+import LoginPage from "./Pages/LoginPage";  // Adjust path if needed
+import GamePage from './Pages/GamePage'; // Correct path
+import Leaderboard from './components/Leaderboard';  // Adjust path if needed
+
 
 function App() {
   return (
@@ -17,6 +21,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/game" element={<GamePage />} />
+            <Route path="/loginpage" element={<LoginPage />} /> {/* Add LoginPage route */}
+            <Route path="/leaderboard" element={<Leaderboard />} /> {/* Add Leaderboard route */}
           </Routes>
         </main>
       </div>
@@ -46,6 +53,9 @@ function Header() {
             </li>
             <li className="navbar-game">
               <Link to="/game" className="navbar-link">Game</Link>
+            </li>
+            <li className="navbar-leaderboard">
+              <Link to="/leaderboard" className="navbar-link">Leaderboard</Link> {/* Add Leaderboard link */}
             </li>
           </ul>
         </div>

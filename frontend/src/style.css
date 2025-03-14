@@ -119,7 +119,8 @@ body {
   }
 
   .game-container {
-    background-image: url('frontend/assets/images/junglebg1.jpg');
+    background-image: url('../assets/images/junglebg1.jpg');
+
     background-size: cover; /* Makes sure the image covers the entire container */
     background-position: center; /* Centers the image */
     background-repeat: no-repeat; /* Ensures the image doesn't repeat */
